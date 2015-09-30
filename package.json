@@ -24,8 +24,10 @@
   "dependencies": {
     "async": "^1.4.2",
     "coffee-script": "^1.10.0",
+    "json-bigint": "^0.1.4",
     "lodash": "^3.10.1",
     "nanocyte-component-callback": "^1.0.1",
+    "traverse": "^0.6.6",
     "xml2js": "^0.4.12"
   },
   "devDependencies": {

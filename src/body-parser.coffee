@@ -1,5 +1,7 @@
 _ = require 'lodash'
 async = require 'async'
+JSONBig = require 'json-bigint'
+traverse = require 'traverse'
 xml2js = require('xml2js').parseString
 CallbackComponent = require 'nanocyte-component-callback'
 
@@ -16,10 +18,9 @@ class BodyParser extends CallbackComponent
       return callback error if error?
       callback null, _.first _.compact results
 
-
   parseJSON: (data, callback) =>
     try
-      callback null, JSON.parse data
+      callback null, @convertBigIntsToStrings JSONBig.parse data
     catch error
       callback null
 
@@ -32,5 +33,13 @@ class BodyParser extends CallbackComponent
 
   parsePassthrough: (data, callback) =>
     _.defer callback, null, data
+
+  convertBigIntsToStrings: (data) =>
+    traverse(data).forEach (obj) -> # intentionally skinny
+      return unless _.isObject obj
+      return unless _.has obj, 's', 'c', 'e'
+      return unless _.isFunction obj.toString
+
+      @update obj.toString()
 
 module.exports = BodyParser

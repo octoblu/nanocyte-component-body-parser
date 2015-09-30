@@ -9,6 +9,8 @@ describe 'BodyParser', ->
     expect(@sut).to.be.an.instanceOf CallbackComponent
 
   describe '->onEnvelope', ->
+
+
     describe 'when called with a JSON string', ->
       beforeEach (done) ->
         envelope =
@@ -20,6 +22,18 @@ describe 'BodyParser', ->
 
       it 'should return the parsed message', ->
         expect(@callback).to.have.been.calledWith null, cyborg: true
+
+    describe 'when called with a massively bigint JSON string', ->
+      beforeEach (done) ->
+        envelope =
+          message:
+            body: '{ "value" : 9223372036854775807, "v2": 123 }'
+
+        @callback = sinon.spy => done()
+        @sut.onEnvelope(envelope, @callback)
+
+      it 'should return the parsed message', ->
+        expect(@callback).to.have.been.calledWith null, value: '9223372036854775807', v2: 123
 
     describe 'when called with an XML string', ->
       beforeEach (done) ->
