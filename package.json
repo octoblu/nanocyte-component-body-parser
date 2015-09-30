@@ -22,8 +22,11 @@
     "test": "istanbul cover _mocha -- -R spec"
   },
   "dependencies": {
+    "async": "^1.4.2",
     "coffee-script": "^1.10.0",
-    "nanocyte-component-return-value": "^1.0.0"
+    "lodash": "^3.10.1",
+    "nanocyte-component-callback": "^1.0.1",
+    "xml2js": "^0.4.12"
   },
   "devDependencies": {
     "chai": "^3.3.0",
