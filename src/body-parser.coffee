@@ -25,6 +25,7 @@ class BodyParser extends CallbackComponent
       callback null
 
   parseXML: (data, callback) =>
+    return callback() unless data?
     xml2js data,
       explicitArray: false
       mergeAttrs: true

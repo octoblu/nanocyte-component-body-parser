@@ -58,3 +58,27 @@ describe 'BodyParser', ->
 
       it 'should return the parsed message', ->
         expect(@callback).to.have.been.calledWith null, {"intellectual": "bow tie"}
+
+    describe 'when called with the undefined', ->
+      beforeEach (done) ->
+        envelope =
+          message:
+            body: undefined
+
+        @callback = sinon.spy => done()
+        @sut.onEnvelope(envelope, @callback)
+
+      it 'should return the parsed message', ->
+
+    describe 'when called with the only int', ->
+      beforeEach (done) ->
+        envelope =
+          message:
+            body: 5
+
+        @callback = sinon.spy => done()
+        @sut.onEnvelope(envelope, @callback)
+
+      it 'should return the parsed message', ->
+        expect(@callback).to.have.been.calledWith null, 5
+        expect(@callback).to.have.been.calledWith null, 5
